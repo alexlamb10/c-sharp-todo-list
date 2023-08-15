@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "rgv9/7xS4j0ZUawv/Ag6UbNQwHE53Wn9Mz71iUzJvJH7Gv/BtcXk/fdQCHC3RuIxpWXBRf8/kN5jaGKWMAaqvA==",
+  "success": true,
+  "projectFilePath": "/Users/alexlamb/coding-practice/c-sharp-todo-list/todo-list-api/TodoApi/TodoApi.csproj",
+  "expectedPackageFiles": [
+    "/Users/alexlamb/.nuget/packages/microsoft.aspnetcore.openapi/7.0.10/microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/alexlamb/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
