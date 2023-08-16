@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TodoApiService } from '../todo-api/todo-api.service';
 
 
 
@@ -9,4 +11,9 @@ import {Component} from '@angular/core';
 })
 export class HomeScreenComponent {
 
+
+  constructor(private _todos: TodoApiService) { }
+
+  todos$ = this._todos.getTodos().pipe(
+    )
 }

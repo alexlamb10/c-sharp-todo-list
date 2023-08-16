@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'tl-todo-list',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent {
+  @Input() todoList: any[] | null = []
 
+  determineTodoListLength() {
+    return this.todoList ? this.todoList.length : 0;
+  }
 }
