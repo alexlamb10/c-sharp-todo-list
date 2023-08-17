@@ -14,11 +14,39 @@ public class TodoItemsController : ControllerBase
     {
         _context = context;
     }
+    [HttpGet("/todoItems")]
+    public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetItems()
+    { 
+        Console.WriteLine("hit results");
+        return await _context.TodoItems
+            .Select(x => ItemToDTO(x))
+            .ToListAsync();
+    }
+
+    [HttpPost("/addTodo")]
+    public async Task<ActionResult<TodoItemDTO>> AddItem([FromBody]  TodoItemDTO todoDTO)
+    {
+        Console.WriteLine("todoName" + todoDTO.Name);
+        var todoItem = new TodoItem
+        {
+            IsComplete = todoDTO.IsComplete,
+            Name = todoDTO.Name
+        };
+
+        _context.TodoItems.Add(todoItem);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(
+            nameof(GetTodoItem),
+            new { id = todoItem.Id },
+            ItemToDTO(todoItem));
+    }
 
     // GET: api/TodoItems
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
     {
+        Console.WriteLine("hit");
         return await _context.TodoItems
             .Select(x => ItemToDTO(x))
             .ToListAsync();
@@ -77,7 +105,7 @@ public class TodoItemsController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     // <snippet_Create>
     [HttpPost]
-    public async Task<ActionResult<TodoItemDTO>> PostTodoItem(TodoItemDTO todoDTO)
+    public async Task<ActionResult<TodoItemDTO>> PostTodoItem( TodoItemDTO todoDTO)
     {
         var todoItem = new TodoItem
         {

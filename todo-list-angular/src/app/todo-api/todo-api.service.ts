@@ -15,8 +15,8 @@ export class TodoApiService {
     return this._http.get<any[]>(`${this.baseURL}/todoItems`)
   }
 
-  createTodo(todo: any) {
-    console.log({todo})
-    return this._http.post<any[]>(`${this.baseURL}/addTodo`, {todo})
+  createTodo(name: any) {
+    console.log({name})
+    return this._http.post<any[]>(`${this.baseURL}/addTodo`, {name})
   }
 }
