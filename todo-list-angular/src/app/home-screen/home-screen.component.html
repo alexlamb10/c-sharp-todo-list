@@ -1,2 +1,3 @@
-<tl-todo-form></tl-todo-form>
+<tl-todo-form (addItem)="addItem($event)"></tl-todo-form>
 <tl-todo-list [todoList]="todos$ | async" ></tl-todo-list>
+

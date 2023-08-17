@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'tl-todo-list',
@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class TodoListComponent {
   @Input() todoList: any[] | null = []
+  @Output() markAsComplete:EventEmitter<any> = new EventEmitter;
+  @Output() deleteTask:EventEmitter<any> = new EventEmitter
 
   determineTodoListLength() {
     return this.todoList ? this.todoList.length : 0;

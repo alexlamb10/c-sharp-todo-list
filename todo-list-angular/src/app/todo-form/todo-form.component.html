@@ -1,1 +1,2 @@
-<p>todo-form works!</p>
+<input class="box" type="text" (keyup)="todoItem(box.value)" #box placeholder="Add another task">
+  <button class="add" (click)="AddItem()" (click)="box.value = ''">Add</button>
