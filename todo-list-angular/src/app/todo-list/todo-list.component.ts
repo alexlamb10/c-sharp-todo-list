@@ -9,8 +9,4 @@ export class TodoListComponent {
   @Input() todoList: any[] | null = []
   @Output() markAsComplete:EventEmitter<any> = new EventEmitter;
   @Output() deleteTask:EventEmitter<any> = new EventEmitter
-
-  determineTodoListLength() {
-    return this.todoList ? this.todoList.length : 0;
-  }
 }

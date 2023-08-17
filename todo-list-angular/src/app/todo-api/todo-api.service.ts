@@ -19,4 +19,9 @@ export class TodoApiService {
     console.log({name})
     return this._http.post<any[]>(`${this.baseURL}/addTodo`, {name})
   }
+
+  markComplete(Id: number) {
+    console.log(Id)
+    return this._http.put<any[]>(`${this.baseURL}/updateItem/${Id}`, {Id})
+  }
 }
