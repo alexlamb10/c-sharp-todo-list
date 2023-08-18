@@ -20,7 +20,6 @@ export class HomeScreenComponent {
   )
 
   markAsComplete(id: any): void {
-    console.log("hit")
     this._todos.markComplete(id).subscribe(() => {
       const currentValue = this.refresh$.value;
         this.refresh$.next(currentValue + 1);
@@ -28,7 +27,6 @@ export class HomeScreenComponent {
   }
 
   addItem(todo: string): void {
-    console.log({ todo });
     this._todos.createTodo(todo).subscribe(() => {
         const currentValue = this.refresh$.value;
         this.refresh$.next(currentValue + 1);

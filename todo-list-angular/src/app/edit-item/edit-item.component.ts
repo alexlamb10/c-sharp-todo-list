@@ -20,13 +20,16 @@ export class EditItemComponent {
     this._todos.getTodoById(id).pipe(
       ).subscribe(list => this.item$.next(list));
   }
-
   updateItem(): void{
+    if (this.singleItem === ''){
+      alert('Please enter a value!')
+    }else{
+      this._todos.updateItem(+this.id, this.singleItem).subscribe((s) => {
+        this.item$.next(s)
+        alert("Task has been updated")
+      })
+    }
 
-    this._todos.updateItem(+this.id, this.singleItem).subscribe((s) => {
-      this.item$.next(s)
-      alert("Item has been updated")
-    })
   }
 
   todoItem(val:string){

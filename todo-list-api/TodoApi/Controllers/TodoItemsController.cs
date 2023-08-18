@@ -18,7 +18,6 @@ public class TodoItemsController : ControllerBase
     [HttpGet("/todoItems")]
     public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetItems()
     { 
-        Console.WriteLine("hit results");
         return await _context.TodoItems
             .Select(x => ItemToDTO(x))
             .ToListAsync();
@@ -53,7 +52,6 @@ public class TodoItemsController : ControllerBase
     [HttpPost("/addTodo")]
     public async Task<ActionResult<TodoItemDTO>> AddItem([FromBody]  TodoItemDTO todoDTO)
     {
-        Console.WriteLine("todoName" + todoDTO.Name);
         var todoItem = new TodoItem
         {
             IsComplete = todoDTO.IsComplete,
@@ -77,7 +75,6 @@ public class TodoItemsController : ControllerBase
         }
 
         var todoItem = await _context.TodoItems.FindAsync(id);
-        Console.WriteLine(todoItem?.IsComplete);
         if (todoItem == null)
         {
             return NotFound();
@@ -131,7 +128,6 @@ public class TodoItemsController : ControllerBase
      [HttpDelete("/deleteTask/{id}")]
     public async Task<IActionResult> DeleteItem([FromRoute] long id)
     {
-        Console.WriteLine("hit delete");
         var todoItem = await _context.TodoItems.FindAsync(id);
         if (todoItem == null)
         {
