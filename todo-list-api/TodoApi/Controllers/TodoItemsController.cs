@@ -73,31 +73,25 @@ public class TodoItemsController : ControllerBase
 
         return NoContent();
     }
-
-    // GET: api/TodoItems
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetTodoItems()
+     [HttpDelete("/deleteTask/{id}")]
+    public async Task<IActionResult> DeleteItem([FromRoute] long id)
     {
-        Console.WriteLine("hit");
-        return await _context.TodoItems
-            .Select(x => ItemToDTO(x))
-            .ToListAsync();
-    }
-
-    // GET: api/TodoItems/5
-    // <snippet_GetByID>
-    [HttpGet("{id}")]
-    public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
-    {
+        Console.WriteLine("hit delete");
         var todoItem = await _context.TodoItems.FindAsync(id);
-
         if (todoItem == null)
         {
             return NotFound();
         }
 
-        return ItemToDTO(todoItem);
+        _context.TodoItems.Remove(todoItem);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
+
+
+
+   
     // </snippet_GetByID>
 
     // PUT: api/TodoItems/5

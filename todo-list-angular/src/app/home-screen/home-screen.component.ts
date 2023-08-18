@@ -34,4 +34,11 @@ export class HomeScreenComponent {
         this.refresh$.next(currentValue + 1);
     });
 }
+
+deleteTask(id: any): void {
+  this._todos.deleteTask(id).subscribe(() => {
+    const currentValue = this.refresh$.value;
+    this.refresh$.next(currentValue + 1);
+});
+}
 }

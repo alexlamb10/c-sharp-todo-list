@@ -7,12 +7,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TodoItemComponent {
   @Output() markAsComplete:EventEmitter<any> = new EventEmitter;
+  @Output() deleteTask:EventEmitter<any> = new EventEmitter;
   @Input() item: any
 
   constructor () { }
 
   MarkAsComplete(id: any): void {
-    console.log(id)
     this.markAsComplete.emit(id)
+  }
+  DeleteTask(id: any): void {
+    this.deleteTask.emit(id)
   }
 }

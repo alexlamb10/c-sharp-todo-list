@@ -24,4 +24,10 @@ export class TodoApiService {
     console.log(Id)
     return this._http.put<any[]>(`${this.baseURL}/updateItem/${Id}`, {Id})
   }
+
+  deleteTask(id: number) {
+    return this._http.delete<any[]>(`${this.baseURL}/deleteTask/${id}`, {}).pipe(
+      switchMap(() => this.getTodos()),
+    )
+  }
 }

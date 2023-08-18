@@ -1,3 +1,7 @@
 <li [id]="item.id" class="list">
+  <div class="buttons">
+    <!-- <button class="button" [id]="item.id" routerLink="/edit/{{item.id}}">Edit</button> -->
+    <button class="button" [id]="item.id" (click)="DeleteTask(item.id)">Delete</button>
+</div>
   <div (click)="MarkAsComplete(item.id)" class="item" [ngClass]="item.isComplete === true ? 'complete' : ''">{{item.name}}</div>
 </li>

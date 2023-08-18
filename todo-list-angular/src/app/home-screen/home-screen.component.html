@@ -1,3 +1,3 @@
 <tl-todo-form (addItem)="addItem($event)"></tl-todo-form>
-<tl-todo-list [todoList]="todos$ | async" (markAsComplete)="markAsComplete($event)"></tl-todo-list>
+<tl-todo-list [todoList]="todos$ | async" (markAsComplete)="markAsComplete($event)" (deleteTask)="deleteTask($event)"></tl-todo-list>
 

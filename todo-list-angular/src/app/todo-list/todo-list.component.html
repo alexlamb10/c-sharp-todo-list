@@ -1,7 +1,7 @@
 <ng-container *ngIf="todoList">
   <ul class="bullet">
     <li *ngFor="let item of todoList">
-      <tl-todo-item [item]="item" (markAsComplete)="this.markAsComplete.emit($event)"></tl-todo-item>
+      <tl-todo-item [item]="item" (markAsComplete)="this.markAsComplete.emit($event)" (deleteTask)="this.deleteTask.emit($event)"></tl-todo-item>
     </li>
   </ul>
 </ng-container>
