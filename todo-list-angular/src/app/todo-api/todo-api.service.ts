@@ -30,4 +30,12 @@ export class TodoApiService {
       switchMap(() => this.getTodos()),
     )
   }
+  getTodoById(id: any): Observable<any[]> {
+    return this._http.get<any[]>(`${this.baseURL}/getTodoById/${id}`, {})
+  }
+  updateItem(id: any,name: string): Observable<any[]> {
+    return this._http.put<any[]>(`${this.baseURL}/updateItemById/${id}`, { name }).pipe(
+      switchMap(() => this.getTodoById(id)),
+    )
+    }
 }

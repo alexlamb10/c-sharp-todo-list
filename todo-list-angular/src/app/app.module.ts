@@ -8,6 +8,7 @@ import { HomeScreenComponent } from './home-screen/home-screen.component';
 import { TodoFormComponent } from './todo-form/todo-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoListComponent } from './todo-list/todo-list.component';
+import { EditItemComponent } from './edit-item/edit-item.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TodoListComponent } from './todo-list/todo-list.component';
     TodoItemComponent,
     TodoListComponent,
     HomeScreenComponent,
-    TodoFormComponent
+    TodoFormComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,

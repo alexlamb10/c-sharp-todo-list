@@ -14,6 +14,7 @@ public class TodoItemsController : ControllerBase
     {
         _context = context;
     }
+
     [HttpGet("/todoItems")]
     public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetItems()
     { 
@@ -21,6 +22,32 @@ public class TodoItemsController : ControllerBase
         return await _context.TodoItems
             .Select(x => ItemToDTO(x))
             .ToListAsync();
+    }
+
+    
+    [HttpGet("/getTodoById/{id}")]
+    public async Task<ActionResult<TodoItemDTO>> GetItemById(long id)
+    {
+        var todoItem = await _context.TodoItems.FindAsync(id);
+
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+
+        return ItemToDTO(todoItem);
+    }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
+    {
+        var todoItem = await _context.TodoItems.FindAsync(id);
+
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+
+        return ItemToDTO(todoItem);
     }
 
     [HttpPost("/addTodo")]
@@ -73,6 +100,34 @@ public class TodoItemsController : ControllerBase
 
         return NoContent();
     }
+    [HttpPut("/updateItemById/{id}")]
+    public async Task<IActionResult> EditItemById([FromRoute] long id, [FromBody] TodoItemDTO todoDTO)
+    {
+        // if (id != todoDTO.Id)
+        // {
+        //     return BadRequest();
+        // }
+
+        var todoItem = await _context.TodoItems.FindAsync(id);
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+
+        todoItem.Name = todoDTO.Name;
+        todoItem.IsComplete = todoDTO.IsComplete;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
      [HttpDelete("/deleteTask/{id}")]
     public async Task<IActionResult> DeleteItem([FromRoute] long id)
     {
@@ -90,7 +145,34 @@ public class TodoItemsController : ControllerBase
     }
 
 
+    [HttpPut("/editTodo/{id}")]
+    public async Task<IActionResult> EditTodoItem(long id, TodoItemDTO todoDTO)
+    {
+        if (id != todoDTO.Id)
+        {
+            return BadRequest();
+        }
 
+        var todoItem = await _context.TodoItems.FindAsync(id);
+        if (todoItem == null)
+        {
+            return NotFound();
+        }
+
+        todoItem.Name = todoDTO.Name;
+        todoItem.IsComplete = todoDTO.IsComplete;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
    
     // </snippet_GetByID>
 
