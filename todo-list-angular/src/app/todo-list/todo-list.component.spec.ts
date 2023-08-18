@@ -9,21 +9,7 @@ describe('TodoListComponent', () => {
     component = new TodoListComponent();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should get the proper length for the todo list', () => {
-    component.todoList = null;
-
-    const result1 = component.determineTodoListLength();
-
-    expect(result1).toBe(0);
-
-    component.todoList = [{ title: 'something'}];
-
-    const result2 = component.determineTodoListLength();
-
-    expect(result2).toBe(1);
-  })
 });

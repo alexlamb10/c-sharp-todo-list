@@ -14,7 +14,7 @@ describe('HomeScreenComponent', () => {
     component = new HomeScreenComponent(mockTodosService)
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

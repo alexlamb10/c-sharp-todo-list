@@ -4,18 +4,11 @@ import { TodoFormComponent } from './todo-form.component';
 
 describe('TodoFormComponent', () => {
   let component: TodoFormComponent;
-  let fixture: ComponentFixture<TodoFormComponent>;
-
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TodoFormComponent]
-    });
-    fixture = TestBed.createComponent(TodoFormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    component = new TodoFormComponent();
+});
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

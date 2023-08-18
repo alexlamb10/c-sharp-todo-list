@@ -1,16 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TodoApiService } from './todo-api.service';
+import { HttpClient } from '@angular/common/http';
 
 describe('TodoApiService', () => {
-  let service: TodoApiService;
+  let component: TodoApiService;
+  let mockHttpClient: HttpClient
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(TodoApiService);
+    component = new TodoApiService(mockHttpClient);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  fit('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

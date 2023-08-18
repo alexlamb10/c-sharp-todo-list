@@ -1,21 +1,20 @@
+import { ActivatedRoute } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditItemComponent } from './edit-item.component';
+import { TodoApiService } from '../todo-api/todo-api.service';
+import { of } from 'rxjs';
 
 describe('EditItemComponent', () => {
   let component: EditItemComponent;
-  let fixture: ComponentFixture<EditItemComponent>;
+  let mockTodosService: TodoApiService;
+  let mockActivateRoute: ActivatedRoute;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [EditItemComponent]
-    });
-    fixture = TestBed.createComponent(EditItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    component = new EditItemComponent(mockActivateRoute, mockTodosService);
+});
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
 });

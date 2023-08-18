@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { TodoApiService } from '../todo-api/todo-api.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'tl-edit-item',
@@ -9,26 +9,25 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent {
-  item$: BehaviorSubject<any> = new BehaviorSubject<any>([])
+  id: any;
 
+  item$: Observable<any> | undefined;
   constructor(private _route: ActivatedRoute, private _todos: TodoApiService) { }
-
   singleItem = '';
-  id = this._route.snapshot.params['id'];
   ngOnInit(): void {
-    let id = this._route.snapshot.params['id'];
-    this._todos.getTodoById(id).pipe(
-      ).subscribe(list => this.item$.next(list));
+    this.item$ = this._route.params.pipe(
+      switchMap((params: Params) => {
+        return this._todos.getTodoById(params['id']);
+      })
+    )
   }
   updateItem(): void{
     if (this.singleItem === ''){
       alert('Please enter a value!')
     }else{
-      this._todos.updateItem(+this.id, this.singleItem).subscribe((s) => {
-        this.item$.next(s)
+      this.item$ = this._todos.updateItem(+this.id, this.singleItem)
         alert("Task has been updated")
-      })
-    }
+      }
 
   }
 
