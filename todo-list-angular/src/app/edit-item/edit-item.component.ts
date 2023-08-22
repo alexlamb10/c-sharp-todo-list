@@ -21,11 +21,11 @@ export class EditItemComponent {
       })
     )
   }
-  updateItem(): void{
+  updateItem(id: number): void{
     if (this.singleItem === ''){
       alert('Please enter a value!')
     }else{
-      this.item$ = this._todos.updateItem(+this.id, this.singleItem)
+      this.item$ = this._todos.updateItem(id, this.singleItem)
         alert("Task has been updated")
       }
 

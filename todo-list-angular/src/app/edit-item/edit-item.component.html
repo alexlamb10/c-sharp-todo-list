@@ -1,6 +1,6 @@
 
-<div>
-  <input class="box" (keyup)="todoItem(box.value)" #box type="text" [value]="item$.value.name">
-  <button class="button" (click)="updateItem()"  [id]="item$.value.id">Save</button>
+<div *ngIf="item$ | async as item">
+  <input class="box" (keyup)="todoItem(box.value)" #box type="text" [value]="item.name">
+  <button class="button" (click)="updateItem(item.id)"  [id]="item.id">Save</button>
   <button class="button" routerLink="/">Back</button>
 </div>
