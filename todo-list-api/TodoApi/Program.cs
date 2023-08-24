@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
 
-
+builder.Services.AddTransient<ITodoItemService, TodoItemService>();
 
 
 var app = builder.Build();

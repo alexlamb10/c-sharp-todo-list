@@ -8,26 +8,24 @@ namespace TodoApi.Controllers;
 [ApiController]
 public class TodoItemsController : ControllerBase
 {
-    private readonly TodoContext _context;
+    private readonly ITodoItemService _todoItemService;
 
-    public TodoItemsController(TodoContext context)
+    public TodoItemsController(ITodoItemService todoItemService)
     {
-        _context = context;
+        _todoItemService = todoItemService;
     }
 
     [HttpGet("/todoItems")]
     public async Task<ActionResult<IEnumerable<TodoItemDTO>>> GetItems()
     { 
-        return await _context.TodoItems
-            .Select(x => ItemToDTO(x))
-            .ToListAsync();
+        return await _todoItemService.TodoItems();
     }
 
     
     [HttpGet("/getTodoById/{id}")]
     public async Task<ActionResult<TodoItemDTO>> GetItemById(long id)
     {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
 
         if (todoItem == null)
         {
@@ -39,7 +37,7 @@ public class TodoItemsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<TodoItemDTO>> GetTodoItem(long id)
     {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
 
         if (todoItem == null)
         {
@@ -58,8 +56,8 @@ public class TodoItemsController : ControllerBase
             Name = todoDTO.Name
         };
 
-        _context.TodoItems.Add(todoItem);
-        await _context.SaveChangesAsync();
+        _todoItemService.AddTodo(todoItem);
+        _todoItemService.SaveChanges();
 
         return CreatedAtAction(
             nameof(GetTodoItem),
@@ -74,7 +72,7 @@ public class TodoItemsController : ControllerBase
             return BadRequest();
         }
 
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
         if (todoItem == null)
         {
             return NotFound();
@@ -88,7 +86,7 @@ public class TodoItemsController : ControllerBase
 
         try
         {
-            await _context.SaveChangesAsync();
+            _todoItemService.SaveChanges();
         }
         catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
         {
@@ -100,7 +98,7 @@ public class TodoItemsController : ControllerBase
     [HttpPut("/updateItemById/{id}")]
     public async Task<IActionResult> EditItemById([FromRoute] long id, [FromBody] TodoItemDTO todoDTO)
     {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
         if (todoItem == null)
         {
             return NotFound();
@@ -111,7 +109,7 @@ public class TodoItemsController : ControllerBase
 
         try
         {
-            await _context.SaveChangesAsync();
+            _todoItemService.SaveChanges();
         }
         catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
         {
@@ -123,14 +121,14 @@ public class TodoItemsController : ControllerBase
      [HttpDelete("/deleteTask/{id}")]
     public async Task<IActionResult> DeleteItem([FromRoute] long id)
     {
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
         if (todoItem == null)
         {
             return NotFound();
         }
 
-        _context.TodoItems.Remove(todoItem);
-        await _context.SaveChangesAsync();
+        _todoItemService.RemoveTodo(todoItem);
+        _todoItemService.SaveChanges();
 
         return NoContent();
     }
@@ -144,7 +142,7 @@ public class TodoItemsController : ControllerBase
             return BadRequest();
         }
 
-        var todoItem = await _context.TodoItems.FindAsync(id);
+        var todoItem = await _todoItemService.GetTodoItem(id);
         if (todoItem == null)
         {
             return NotFound();
@@ -155,7 +153,7 @@ public class TodoItemsController : ControllerBase
 
         try
         {
-            await _context.SaveChangesAsync();
+            _todoItemService.SaveChanges();
         }
         catch (DbUpdateConcurrencyException) when (!TodoItemExists(id))
         {
@@ -164,9 +162,18 @@ public class TodoItemsController : ControllerBase
 
         return NoContent();
     }
-    private bool TodoItemExists(long id)
+    public bool TodoItemExists(long id)
     {
-        return _context.TodoItems.Any(e => e.Id == id);
+        // return _context.TodoItems.Any(e => e.Id == id);
+        var exists = _todoItemService.TodoItemExists(id);
+
+        if(exists == false)
+        {
+            throw new Exception();
+        }else {
+            return true;
+        }
+         
     }
 
     private static TodoItemDTO ItemToDTO(TodoItem todoItem) =>
