@@ -73,10 +73,7 @@ public class TodoItemsController : ControllerBase
         }
 
         var todoItem = await _todoItemService.GetTodoItem(id);
-        if (todoItem == null)
-        {
-            return NotFound();
-        }
+        _todoItemService.CheckIfNull(todoItem);
         if(todoItem?.IsComplete == false){
             todoDTO.IsComplete = true;
         }else {

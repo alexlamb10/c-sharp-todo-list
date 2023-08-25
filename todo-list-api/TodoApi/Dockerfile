@@ -11,7 +11,7 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/sdk:7.0 
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENV ASPNETCORE_URLS=http://localhost:5137
+ENV ASPNETCORE_URLS=http://+:5137
 
 EXPOSE 80/tcp
 EXPOSE 442/tcp

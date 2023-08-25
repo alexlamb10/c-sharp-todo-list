@@ -8,6 +8,7 @@ public interface ITodoItemService{
     void SaveChanges();
     void AddTodo(TodoItem todoItem);
     void RemoveTodo(TodoItem todoItem);
+    void CheckIfNull(TodoItem todoItem);
     Task<ActionResult<IEnumerable<TodoItemDTO>>> TodoItems();
 }
 
@@ -42,6 +43,18 @@ public class TodoItemService : ITodoItemService {
     }
     public void RemoveTodo(TodoItem todoItem) {
         _context.TodoItems.Remove(todoItem);
+    }
+
+    public void CheckIfNull(TodoItem todoItem){
+        if (todoItem == null)
+        {
+             NotFound();
+        }
+    }
+
+    private void NotFound()
+    {
+        throw new NotImplementedException();
     }
 
     private static TodoItemDTO ItemToDTO(TodoItem todoItem) =>
